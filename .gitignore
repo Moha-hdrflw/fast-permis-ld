@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.vercel/
+.astro/
+.DS_Store
+index.html
+index.html.bak
