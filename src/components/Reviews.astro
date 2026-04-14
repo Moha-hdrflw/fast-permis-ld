@@ -114,20 +114,8 @@ const reviews = [
 
   @media (max-width: 640px) {
     .reviews-track {
-      display: flex;
-      overflow-x: auto;
+      grid-template-columns: 1fr;
       gap: 16px;
-      padding-bottom: 12px;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
     }
-    .review-card {
-      min-width: 280px;
-      scroll-snap-align: start;
-      flex-shrink: 0;
-    }
-    .reviews-track::-webkit-scrollbar { height: 4px; }
-    .reviews-track::-webkit-scrollbar-track { background: var(--border); border-radius: 2px; }
-    .reviews-track::-webkit-scrollbar-thumb { background: var(--red); border-radius: 2px; }
   }
 </style>
