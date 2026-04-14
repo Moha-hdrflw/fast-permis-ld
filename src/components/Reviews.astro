@@ -1,0 +1,133 @@
+---
+const reviews = [
+  {
+    initial: "I",
+    name: "Ilane",
+    text: "Très bonne auto-école, sérieuse et professionnelle. On est bien accompagné du début à la fin. Les moniteurs sont à l'écoute et mettent en confiance (merci à Salah). Je recommande sans hésiter.",
+  },
+  {
+    initial: "G",
+    name: "Gadrey",
+    text: "Super auto-école ! Grâce à leur sérieux et leur patience, j'ai obtenu mon permis rapidement. Une pensée spéciale à toute l'équipe et à Salah, excellent moniteur.",
+  },
+  {
+    initial: "S",
+    name: "Selma",
+    text: "Super auto-école ! Permis en seulement 3 mois. Les moniteurs gentils, patients et pédagogues. Je recommande sans hésiter !",
+  },
+  {
+    initial: "N",
+    name: "Nassim",
+    text: "Très bonne expérience avec Fast Permis ! Équipe professionnelle, réactive et à l'écoute. Formation efficace et accompagnement sérieux du début à la fin. Je recommande sans hésiter.",
+  },
+];
+---
+
+<section id="reviews">
+  <div class="container">
+
+    <div class="reviews-header fade-up">
+      <span class="section-label">Témoignages</span>
+      <h2 class="section-title">Ce que disent nos <span>élèves</span></h2>
+      <div class="stars-line">⭐⭐⭐⭐⭐</div>
+      <div class="stars-score">5/5 sur Google</div>
+    </div>
+
+    <div class="reviews-track stagger">
+      {reviews.map((r) => (
+        <div class="review-card fade-up">
+          <div class="review-top">
+            <div class="review-avatar">{r.initial}</div>
+            <div>
+              <div class="review-name">{r.name}</div>
+              <div class="review-stars">★★★★★</div>
+            </div>
+          </div>
+          <p class="review-text">"{r.text}"</p>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  #reviews { background: var(--dark); }
+
+  .reviews-header { text-align: center; margin-bottom: 48px; }
+
+  .stars-line { font-size: 1.5rem; letter-spacing: 0.08em; margin-top: 8px; }
+
+  .stars-score {
+    font-family: var(--font-title);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .reviews-track {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .review-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    transition: border-color var(--transition), transform var(--transition);
+  }
+  .review-card:hover { border-color: var(--border-red); transform: translateY(-3px); }
+
+  .review-top { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+
+  .review-avatar {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: var(--red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-title);
+    font-weight: 800;
+    font-size: 1.15rem;
+    flex-shrink: 0;
+  }
+
+  .review-name {
+    font-family: var(--font-title);
+    font-weight: 700;
+    font-size: 1.05rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .review-stars { font-size: 0.85rem; color: #ffd600; }
+
+  .review-text { font-size: 0.92rem; color: rgba(255,255,255,0.65); line-height: 1.65; }
+
+  @media (max-width: 900px) {
+    .reviews-track { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 640px) {
+    .reviews-track {
+      display: flex;
+      overflow-x: auto;
+      gap: 16px;
+      padding-bottom: 12px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .review-card {
+      min-width: 280px;
+      scroll-snap-align: start;
+      flex-shrink: 0;
+    }
+    .reviews-track::-webkit-scrollbar { height: 4px; }
+    .reviews-track::-webkit-scrollbar-track { background: var(--border); border-radius: 2px; }
+    .reviews-track::-webkit-scrollbar-thumb { background: var(--red); border-radius: 2px; }
+  }
+</style>

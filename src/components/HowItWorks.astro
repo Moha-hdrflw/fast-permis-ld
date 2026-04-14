@@ -1,0 +1,122 @@
+---
+const CALENDLY = "https://calendly.com/fastpermis-rdv/30min?month=2026-04";
+
+const steps = [
+  {
+    num: "01",
+    icon: "📅",
+    title: "Tu réserves un créneau",
+    text: "Choisis le jour et l'heure qui te convient. L'appel dure environ 10 minutes.",
+  },
+  {
+    num: "02",
+    icon: "📞",
+    title: "Un conseiller t'appelle",
+    text: "Notre équipe est disponible du lundi au dimanche. Il répond à toutes tes questions sur la formation, les délais, le paiement.",
+  },
+  {
+    num: "03",
+    icon: "✅",
+    title: "Tu t'inscris au téléphone",
+    text: "Si Fast Permis correspond à ce que tu cherches, l'inscription se fait directement pendant l'appel. Simple et rapide.",
+  },
+];
+---
+
+<section id="how">
+  <div class="container">
+
+    <div class="how-header fade-up">
+      <span class="section-label">Simple et rapide</span>
+      <h2 class="section-title">Comment ça se passe ?</h2>
+    </div>
+
+    <div class="steps-grid stagger">
+      {steps.map((step) => (
+        <div class="step-card fade-up">
+          <span class="step-number">{step.num}</span>
+          <span class="step-icon">{step.icon}</span>
+          <div class="step-title">{step.title}</div>
+          <p class="step-text">{step.text}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="how-cta fade-up">
+      <a class="btn btn-lg" href={CALENDLY} target="_blank" rel="noopener noreferrer">
+        Je réserve mon appel gratuit →
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  #how { background: var(--dark); }
+
+  .how-header { margin-bottom: 56px; }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .step-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 36px 28px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color var(--transition), transform var(--transition);
+  }
+  .step-card:hover {
+    border-color: var(--border-red);
+    transform: translateY(-4px);
+  }
+
+  .step-number {
+    position: absolute;
+    top: -8px; right: 16px;
+    font-family: var(--font-title);
+    font-weight: 900;
+    font-size: 7rem;
+    line-height: 1;
+    color: rgba(232,19,10,0.1);
+    user-select: none;
+    pointer-events: none;
+    letter-spacing: -0.03em;
+  }
+
+  .step-icon {
+    font-size: 1.8rem;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .step-title {
+    font-family: var(--font-title);
+    font-weight: 800;
+    font-size: 1.35rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-text {
+    color: rgba(255,255,255,0.65);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    position: relative;
+    z-index: 1;
+  }
+
+  .how-cta { text-align: center; margin-top: 48px; }
+
+  @media (max-width: 900px) {
+    .steps-grid { grid-template-columns: 1fr; }
+  }
+</style>

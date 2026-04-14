@@ -1,0 +1,145 @@
+/* =============================================
+   RESET & VARIABLES
+============================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --red: #e8130a;
+  --red-glow: rgba(232, 19, 10, 0.45);
+  --red-dim: rgba(232, 19, 10, 0.12);
+  --black: #0a0a0a;
+  --dark: #1c1c1c;
+  --dark-mid: #111111;
+  --white: #ffffff;
+  --text-muted: rgba(255,255,255,0.55);
+  --border: rgba(255,255,255,0.08);
+  --border-red: rgba(232, 19, 10, 0.3);
+  --font-title: 'Barlow Condensed', sans-serif;
+  --font-body: 'Barlow', sans-serif;
+  --radius: 10px;
+  --transition: 0.25s ease;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--black);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* =============================================
+   SCROLL ANIMATIONS
+============================================= */
+.fade-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stagger > *:nth-child(1) { transition-delay: 0.05s; }
+.stagger > *:nth-child(2) { transition-delay: 0.15s; }
+.stagger > *:nth-child(3) { transition-delay: 0.25s; }
+.stagger > *:nth-child(4) { transition-delay: 0.35s; }
+
+/* =============================================
+   CTA BUTTON — PARALLÉLOGRAMME
+============================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 32px;
+  background: var(--red);
+  color: var(--white);
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  position: relative;
+  overflow: hidden;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+  white-space: nowrap;
+  text-decoration: none;
+}
+.btn::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  transition: left 0.5s ease;
+}
+.btn:hover::after { left: 150%; }
+.btn:hover {
+  background: #ff1f15;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px var(--red-glow);
+}
+.btn:active { transform: translateY(0); }
+
+.btn-white { background: var(--white); color: var(--red); }
+.btn-white:hover { background: #f0f0f0; box-shadow: 0 8px 30px rgba(255,255,255,0.2); }
+
+.btn-lg { padding: 20px 44px; font-size: 1.25rem; }
+
+/* =============================================
+   LAYOUT
+============================================= */
+section { padding: 80px 20px; }
+
+.container { max-width: 1100px; margin: 0 auto; width: 100%; }
+
+.section-label {
+  display: inline-block;
+  font-family: var(--font-title);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 14px;
+}
+
+.section-title {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(2rem, 4vw, 3rem);
+  text-transform: uppercase;
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+}
+.section-title span { color: var(--red); }
+
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-red), transparent);
+}
+
+/* =============================================
+   RESPONSIVE
+============================================= */
+@media (max-width: 640px) {
+  section { padding: 64px 16px; }
+  .btn-lg { padding: 17px 30px; font-size: 1.1rem; }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "fast-permis",
+  "type": "module",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && cp dist/index.html index.html",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^5.0.0",
+    "@astrojs/vercel": "^8.0.0"
+  }
+}

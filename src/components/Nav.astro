@@ -1,0 +1,58 @@
+---
+const CALENDLY = "https://calendly.com/fastpermis-rdv/30min?month=2026-04";
+---
+
+<nav id="nav">
+  <div class="nav-logo">
+    <img src="/logo.png" alt="Fast Permis" />
+  </div>
+  <a class="btn nav-cta" href={CALENDLY} target="_blank" rel="noopener noreferrer">
+    Réserver mon appel gratuit
+  </a>
+</nav>
+
+<style>
+  #nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 999;
+    padding: 0 24px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(10, 10, 10, 0.88);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(232, 19, 10, 0.3);
+    transition: background 0.3s;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+  }
+  .nav-logo img {
+    height: 42px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .nav-cta {
+    padding: 10px 22px;
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 640px) {
+    .nav-cta { padding: 9px 16px; font-size: 0.82rem; }
+  }
+</style>
+
+<script>
+  const nav = document.getElementById('nav')!;
+  window.addEventListener('scroll', () => {
+    nav.style.background = window.scrollY > 40
+      ? 'rgba(10, 10, 10, 0.97)'
+      : 'rgba(10, 10, 10, 0.88)';
+  }, { passive: true });
+</script>

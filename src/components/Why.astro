@@ -1,0 +1,66 @@
+---
+const items = [
+  { icon: "🚀", title: "Dates d'examen rapides", text: "On t'obtient une date d'examen rapidement. Pas d'attente inutile." },
+  { icon: "💳", title: "Paiement flexible", text: "3x ou 4x sans frais grâce à Alma. Tu commences sans tout payer d'un coup." },
+  { icon: "📞", title: "Disponibles 7j/7", text: "Nos conseillers répondent du lundi au dimanche sur de larges créneaux horaires." },
+  { icon: "🎯", title: "Accompagnement complet", text: "Du premier appel jusqu'au jour de l'examen, on est là à chaque étape." },
+];
+---
+
+<section id="why">
+  <div class="container">
+
+    <div class="fade-up">
+      <span class="section-label">Nos engagements</span>
+      <h2 class="section-title">Pourquoi choisir <span>Fast Permis</span> ?</h2>
+    </div>
+
+    <div class="why-grid stagger">
+      {items.map((item) => (
+        <div class="why-card fade-up">
+          <span class="why-icon">{item.icon}</span>
+          <div class="why-title">{item.title}</div>
+          <p class="why-text">{item.text}</p>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  #why { background: var(--dark-mid); }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 48px;
+  }
+
+  .why-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    transition: border-color var(--transition), transform var(--transition);
+  }
+  .why-card:hover { border-color: var(--border-red); transform: translateY(-3px); }
+
+  .why-icon { font-size: 2rem; margin-bottom: 14px; display: block; }
+
+  .why-title {
+    font-family: var(--font-title);
+    font-weight: 800;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-bottom: 8px;
+  }
+
+  .why-text { color: rgba(255,255,255,0.6); font-size: 0.95rem; line-height: 1.6; }
+
+  @media (max-width: 900px) {
+    .why-grid { grid-template-columns: 1fr; }
+  }
+</style>

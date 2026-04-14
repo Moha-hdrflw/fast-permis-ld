@@ -1,0 +1,143 @@
+---
+const faqs = [
+  {
+    q: "L'appel est vraiment gratuit et sans engagement ?",
+    a: "Oui, totalement. L'appel dure environ 10 minutes. Notre conseiller répond à toutes tes questions. Tu t'inscris seulement si tu le souhaites.",
+  },
+  {
+    q: "Comment se passe l'inscription ?",
+    a: "Tout se fait par téléphone pendant l'appel. Pas besoin de te déplacer pour commencer. Notre conseiller s'occupe de tout.",
+  },
+  {
+    q: "Le paiement en 3x ou 4x, comment ça marche ?",
+    a: "On utilise Alma, une solution de paiement sans frais. Tu paies en 3 ou 4 fois par carte. Notre conseiller t'explique tout pendant l'appel.",
+  },
+  {
+    q: "Combien de temps pour avoir son permis ?",
+    a: "Ça dépend de ta progression, mais on obtient des dates d'examen rapidement. Beaucoup de nos élèves obtiennent leur permis en 3 mois.",
+  },
+  {
+    q: "Quelle formule choisir, auto ou manuelle ?",
+    a: "Notre conseiller t'aidera à choisir pendant l'appel selon ton profil et tes besoins.",
+  },
+];
+---
+
+<section id="faq">
+  <div class="container">
+
+    <div class="faq-header fade-up">
+      <span class="section-label">FAQ</span>
+      <h2 class="section-title">Questions <span>fréquentes</span></h2>
+    </div>
+
+    <div class="faq-list fade-up" id="faqList">
+      {faqs.map((faq) => (
+        <div class="faq-item">
+          <button class="faq-btn" aria-expanded="false">
+            <span class="faq-question">{faq.q}</span>
+            <span class="faq-icon" aria-hidden="true">
+              <svg viewBox="0 0 14 14"><line x1="7" y1="1" x2="7" y2="13"/><line x1="1" y1="7" x2="13" y2="7"/></svg>
+            </span>
+          </button>
+          <div class="faq-body">
+            <p class="faq-answer">{faq.a}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  #faq { background: var(--black); }
+
+  .faq-header { margin-bottom: 48px; }
+
+  .faq-list { max-width: 760px; }
+
+  .faq-item { border-bottom: 1px solid var(--border); }
+
+  .faq-btn {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 22px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .faq-question {
+    font-family: var(--font-title);
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--white);
+    transition: color var(--transition);
+  }
+  .faq-btn:hover .faq-question { color: var(--red); }
+
+  .faq-icon {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 1px solid rgba(232,19,10,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform var(--transition), background var(--transition);
+  }
+  .faq-icon svg {
+    width: 13px; height: 13px;
+    fill: none;
+    stroke: var(--red);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    transition: transform 0.3s ease;
+  }
+  .faq-item.open .faq-icon { background: var(--red); }
+  .faq-item.open .faq-icon svg { stroke: var(--white); transform: rotate(45deg); }
+
+  .faq-body {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.35s ease;
+  }
+  .faq-body.open { max-height: 300px; }
+
+  .faq-answer {
+    padding: 0 0 22px;
+    color: rgba(255,255,255,0.62);
+    font-size: 0.97rem;
+    line-height: 1.7;
+  }
+</style>
+
+<script>
+  document.getElementById('faqList')!.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest('.faq-btn');
+    if (!btn) return;
+
+    const item = btn.closest('.faq-item')!;
+    const body = item.querySelector('.faq-body')!;
+    const isOpen = item.classList.contains('open');
+
+    document.querySelectorAll('.faq-item.open').forEach((openItem) => {
+      openItem.classList.remove('open');
+      openItem.querySelector('.faq-body')!.classList.remove('open');
+      openItem.querySelector('.faq-btn')!.setAttribute('aria-expanded', 'false');
+    });
+
+    if (!isOpen) {
+      item.classList.add('open');
+      body.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  });
+</script>
