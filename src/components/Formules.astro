@@ -9,12 +9,12 @@ const formules = [
     subPrice: "Paiement en 3x = 233€/mois",
     features: [
       "13h de conduite",
-      "dont 2h sur simulateur",
       "Dates d'examen rapides",
       "Paiement 3x ou 4x sans frais via Alma",
       "Accompagnement du début à la fin",
     ],
     cta: "Je réserve — Boîte Auto →",
+    highlight: false,
   },
   {
     popular: false,
@@ -23,12 +23,28 @@ const formules = [
     subPrice: "Paiement en 3x = 330€/mois",
     features: [
       "20h de conduite",
-      "dont 3h sur simulateur",
       "Dates d'examen rapides",
       "Paiement 3x ou 4x sans frais via Alma",
       "Accompagnement du début à la fin",
     ],
     cta: "Je réserve — Boîte Manuelle →",
+    highlight: false,
+  },
+  {
+    popular: false,
+    name: "Formule Accélérée",
+    price: "1499€",
+    subPrice: "Paiement en 4x = 375€/mois",
+    features: [
+      "Permis en 1 mois chrono",
+      "Heures de conduite intensives",
+      "Dates d'examen prioritaires",
+      "Accompagnement le jour de l'examen",
+      "Suivi personnalisé jusqu'au permis",
+      "Paiement 3x ou 4x sans frais via Alma",
+    ],
+    cta: "Je réserve — Formule Accélérée →",
+    highlight: true,
   },
 ];
 ---
@@ -43,10 +59,11 @@ const formules = [
 
     <div class="cards-grid">
       {formules.map((f) => (
-        <div class={`formula-card fade-up${f.popular ? ' popular' : ''}`}>
+        <div class={`formula-card fade-up${f.popular ? ' popular' : ''}${f.highlight ? ' highlight' : ''}`}>
           <div class="formula-header">
             {f.popular && <span class="badge-popular">Le plus populaire</span>}
-            {!f.popular && <div style="height:28px;" />}
+            {f.highlight && <span class="badge-popular badge-gold">⚡ Permis en 1 mois</span>}
+            {!f.popular && !f.highlight && <div style="height:28px;" />}
             <div class="formula-name">{f.name}</div>
             <div class="formula-price">{f.price}</div>
             <div class="formula-sub-price" set:html={f.subPrice.replace('=', '= <strong>').replace('/mois', '/mois</strong>')} />
@@ -78,9 +95,9 @@ const formules = [
 
   .cards-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 24px;
-    max-width: 860px;
+    max-width: 1100px;
     margin: 0 auto;
   }
 
@@ -105,6 +122,23 @@ const formules = [
   }
   .formula-card:hover { border-color: var(--red); transform: translateY(-6px); box-shadow: 0 16px 48px rgba(232,19,10,0.12); }
   .formula-card:hover::before, .formula-card.popular::before { opacity: 1; }
+
+  .formula-card.highlight {
+    border-color: rgba(255, 180, 0, 0.35);
+    background: rgba(255, 160, 0, 0.04);
+  }
+  .formula-card.highlight::before {
+    background: linear-gradient(90deg, #e8130a, #ff9500);
+    opacity: 1;
+  }
+  .formula-card.highlight:hover {
+    border-color: rgba(255, 160, 0, 0.7);
+    box-shadow: 0 16px 48px rgba(255, 140, 0, 0.15);
+  }
+
+  .badge-gold {
+    background: linear-gradient(90deg, #e8130a, #ff9500) !important;
+  }
 
   .formula-header {
     padding: 32px 28px 24px;
@@ -174,7 +208,11 @@ const formules = [
 
   .btn-full { width: 100%; justify-content: center; }
 
-  @media (max-width: 900px) {
+  @media (max-width: 1024px) {
+    .cards-grid { grid-template-columns: 1fr 1fr; max-width: 860px; }
+  }
+
+  @media (max-width: 640px) {
     .cards-grid { grid-template-columns: 1fr; max-width: 480px; }
   }
 </style>
