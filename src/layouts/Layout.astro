@@ -29,11 +29,8 @@ const {
       rel="stylesheet"
     />
 
-    <!-- META PIXEL CODE — À ACTIVER PLUS TARD -->
-    <!--
+    <!-- META PIXEL CODE -->
     <script>
-      // Coller ici le code du Pixel Meta fourni par Meta Business Suite
-      // Remplacer YOUR_PIXEL_ID par votre identifiant
       !function(f,b,e,v,n,t,s)
       {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
       n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -42,14 +39,13 @@ const {
       t.src=v;s=b.getElementsByTagName(e)[0];
       s.parentNode.insertBefore(t,s)}(window, document,'script',
       'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', 'YOUR_PIXEL_ID');
+      fbq('init', '2347878375704800');
       fbq('track', 'PageView');
     </script>
     <noscript>
       <img height="1" width="1" style="display:none"
-      src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID&ev=PageView&noscript=1"/>
+      src="https://www.facebook.com/tr?id=2347878375704800&ev=PageView&noscript=1"/>
     </noscript>
-    -->
   </head>
   <body>
     <!-- Neon background FX -->
@@ -75,6 +71,17 @@ const {
         });
       }, { threshold: 0.12 });
       fadeEls.forEach(el => observer.observe(el));
+    </script>
+
+    <!-- Tracking clics Calendly → Meta Pixel Lead -->
+    <script>
+      document.querySelectorAll('a[href*="calendly.com"]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          if (typeof fbq !== 'undefined') {
+            fbq('track', 'Lead');
+          }
+        });
+      });
     </script>
   </body>
 </html>
