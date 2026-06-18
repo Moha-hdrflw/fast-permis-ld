@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 
 const PIXEL_ID = '2347878375704800';
-const ACCESS_TOKEN = import.meta.env.META_ACCESS_TOKEN;
+const ACCESS_TOKEN = process.env.META_ACCESS_TOKEN ?? import.meta.env.META_ACCESS_TOKEN;
 
 export const POST: APIRoute = async ({ request }) => {
   if (!ACCESS_TOKEN) {
