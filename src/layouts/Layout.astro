@@ -29,8 +29,47 @@ const {
       rel="stylesheet"
     />
 
-    <!-- META PIXEL CODE -->
+    <!-- META PIXEL CODE + EMQ FIXES -->
     <script>
+      // ── Helpers ──────────────────────────────────────────────
+      function getCookie(name) {
+        const m = document.cookie.match('(?:^|; )' + name + '=([^;]*)');
+        return m ? decodeURIComponent(m[1]) : null;
+      }
+
+      function setCookie(name, value, days) {
+        const exp = new Date(Date.now() + days * 864e5).toUTCString();
+        document.cookie = name + '=' + encodeURIComponent(value) +
+          '; expires=' + exp + '; path=/; SameSite=Lax';
+      }
+
+      // fbc : construit depuis fbclid si présent dans l'URL, sinon cookie existant
+      function getFbc() {
+        const params = new URLSearchParams(window.location.search);
+        const fbclid = params.get('fbclid');
+        if (fbclid) {
+          const fbc = 'fb.1.' + Date.now() + '.' + fbclid;
+          setCookie('_fbc', fbc, 90);
+          return fbc;
+        }
+        return getCookie('_fbc');
+      }
+
+      // fbp : cookie déposé automatiquement par le pixel
+      function getFbp() { return getCookie('_fbp'); }
+
+      // external_id : ID de session persistant par navigateur
+      function getExternalId() {
+        let id = localStorage.getItem('_fp_eid');
+        if (!id) {
+          id = (crypto.randomUUID ? crypto.randomUUID()
+            : Math.random().toString(36).slice(2) + Date.now().toString(36));
+          localStorage.setItem('_fp_eid', id);
+        }
+        return id;
+      }
+
+      // ── Init Pixel avec external_id ───────────────────────────
       !function(f,b,e,v,n,t,s)
       {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
       n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -39,7 +78,8 @@ const {
       t.src=v;s=b.getElementsByTagName(e)[0];
       s.parentNode.insertBefore(t,s)}(window, document,'script',
       'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '2347878375704800');
+
+      fbq('init', '2347878375704800', { external_id: getExternalId() });
       fbq('track', 'PageView');
     </script>
     <noscript>
@@ -73,13 +113,35 @@ const {
       fadeEls.forEach(el => observer.observe(el));
     </script>
 
-    <!-- Tracking clics Calendly → Meta Pixel Lead -->
+    <!-- Tracking clics Calendly → Pixel + CAPI (dédoublonnage par eventId) -->
     <script>
       document.querySelectorAll('a[href*="calendly.com"]').forEach((btn) => {
         btn.addEventListener('click', () => {
+          const fbp        = getFbp();
+          const fbc        = getFbc();
+          const externalId = getExternalId();
+
+          // eventId identique côté client ET serveur → Meta dédoublonne automatiquement
+          const eventId = externalId + '_lead_' + Date.now();
+
+          // 1. Pixel navigateur
           if (typeof fbq !== 'undefined') {
-            fbq('track', 'Lead');
+            fbq('track', 'Lead', {}, { eventID: eventId });
           }
+
+          // 2. CAPI côté serveur (améliore l'EMQ avec IP réelle + user-agent)
+          fetch('/api/lead', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              eventId,
+              externalId,
+              sourceUrl:  window.location.href,
+              userAgent:  navigator.userAgent,
+              fbp:        fbp  || '',
+              fbc:        fbc  || '',
+            }),
+          }).catch(() => {});
         });
       });
     </script>
