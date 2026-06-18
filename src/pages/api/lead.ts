@@ -5,7 +5,8 @@ const ACCESS_TOKEN = process.env.META_ACCESS_TOKEN ?? import.meta.env.META_ACCES
 
 export const POST: APIRoute = async ({ request }) => {
   if (!ACCESS_TOKEN) {
-    return new Response(JSON.stringify({ error: 'META_ACCESS_TOKEN manquant' }), { status: 500 });
+    const keys = Object.keys(process.env).filter(k => k.includes('META') || k.includes('ACCESS'));
+    return new Response(JSON.stringify({ error: 'META_ACCESS_TOKEN manquant', availableKeys: keys }), { status: 500 });
   }
 
   let body: Record<string, string>;
