@@ -9,6 +9,13 @@ const CALENDLY = "https://calendly.com/fastpermis-rdv/30min?month=2026-04";
       <img src="/logo.png" alt="Fast Permis" />
     </div>
 
+    <div class="city fade-up visible">
+      <div class="city-sign" role="img" aria-label="Agence de Roubaix">
+        <span>ROUBAIX</span>
+      </div>
+      <p class="city-address">Agence · 3 rue du Chemin de Fer, 59100 Roubaix</p>
+    </div>
+
     <div class="hero-badge fade-up visible">
       <span class="pulse-dot"></span>
       Conseillers disponibles
@@ -75,6 +82,38 @@ const CALENDLY = "https://calendly.com/fastpermis-rdv/30min?month=2026-04";
     width: auto;
     object-fit: contain;
     filter: drop-shadow(0 0 24px rgba(232,19,10,0.3));
+  }
+
+  .city {
+    margin-bottom: 28px;
+  }
+
+  .city-sign {
+    display: inline-block;
+    background: #fff;
+    padding: 6px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(232,19,10,0.45), 0 0 70px rgba(232,19,10,0.2);
+  }
+
+  .city-sign span {
+    display: block;
+    border: 5px solid var(--red);
+    border-radius: 6px;
+    padding: 6px 30px 4px;
+    font-family: var(--font-title);
+    font-weight: 800;
+    font-size: clamp(2rem, 7vw, 2.8rem);
+    line-height: 1;
+    letter-spacing: 0.06em;
+    color: #111;
+  }
+
+  .city-address {
+    margin-top: 12px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
   }
 
   .hero-badge {
@@ -170,6 +209,7 @@ const CALENDLY = "https://calendly.com/fastpermis-rdv/30min?month=2026-04";
 
   @media (max-width: 640px) {
     #hero { padding: 100px 16px 64px; }
+    .hero-logo img { height: 130px; }
     .hero-title { font-size: clamp(3.8rem, 18vw, 6rem); }
     .hero-chips { gap: 8px; }
     .chip { font-size: 0.82rem; padding: 8px 14px; }
