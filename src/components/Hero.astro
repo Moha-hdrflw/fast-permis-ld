@@ -22,9 +22,8 @@ const CALENDLY = "https://calendly.com/fastpermis-rdv/30min?month=2026-04";
     </nav>
 
     <div class="city fade-up visible">
-      {agence.panneau
-        ? <img class="city-sign" src={agence.panneau} alt={`Agence de ${agence.ville}`} width="900" height="300" />
-        : <div class="city-sign city-sign-css" role="img" aria-label={`Agence de ${agence.ville}`}><span>{agence.ville.toUpperCase()}</span></div>}
+      <img class="city-sign" src={agence.panneau} alt={`Agence de ${agence.ville}`} />
+
       <p class="city-address">{agence.adresse ? `Agence · ${agence.adresse}` : `Agence de ${agence.ville}`}</p>
     </div>
 
@@ -97,41 +96,16 @@ const CALENDLY = "https://calendly.com/fastpermis-rdv/30min?month=2026-04";
   }
 
   .city {
-    --w: min(320px, 80vw);
     margin-bottom: 28px;
   }
 
   .city-sign {
     display: block;
-    width: var(--w);
-    height: auto;
+    width: min(290px, 75vw);
+    aspect-ratio: 3.6;
+    object-fit: fill;
     margin: 0 auto;
     filter: drop-shadow(0 0 22px rgba(232,19,10,0.45));
-  }
-
-  /* Matches the visible sign inside the 900x300 PNG (807x227 at x=47, y=42) */
-  .city-sign-css {
-    box-sizing: border-box;
-    width: calc(var(--w) * 0.8967);
-    height: calc(var(--w) * 0.2522);
-    margin: calc(var(--w) * 0.0467) auto calc(var(--w) * 0.0344);
-    padding: calc(var(--w) * 0.012);
-    background: #fff;
-    border-radius: calc(var(--w) * 0.02);
-  }
-  .city-sign-css span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    border: calc(var(--w) * 0.02) solid var(--red);
-    border-radius: calc(var(--w) * 0.012);
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 700;
-    font-size: calc(var(--w) * 0.12);
-    line-height: 1;
-    letter-spacing: 0.04em;
-    color: #111;
   }
 
   .agence-switch {
