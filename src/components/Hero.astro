@@ -10,9 +10,7 @@ const CALENDLY = "https://calendly.com/fastpermis-rdv/30min?month=2026-04";
     </div>
 
     <div class="city fade-up visible">
-      <div class="city-sign" role="img" aria-label="Agence de Roubaix">
-        <span>ROUBAIX</span>
-      </div>
+      <img class="city-sign" src="/panneau-roubaix.png" alt="Agence de Roubaix" width="900" height="300" />
       <p class="city-address">Agence · 3 rue du Chemin de Fer, 59100 Roubaix</p>
     </div>
 
@@ -89,24 +87,11 @@ const CALENDLY = "https://calendly.com/fastpermis-rdv/30min?month=2026-04";
   }
 
   .city-sign {
-    display: inline-block;
-    background: #fff;
-    padding: 6px;
-    border-radius: 10px;
-    box-shadow: 0 0 30px rgba(232,19,10,0.45), 0 0 70px rgba(232,19,10,0.2);
-  }
-
-  .city-sign span {
     display: block;
-    border: 5px solid var(--red);
-    border-radius: 6px;
-    padding: 6px 30px 4px;
-    font-family: var(--font-title);
-    font-weight: 800;
-    font-size: clamp(2rem, 7vw, 2.8rem);
-    line-height: 1;
-    letter-spacing: 0.06em;
-    color: #111;
+    width: min(320px, 80vw);
+    height: auto;
+    margin: 0 auto;
+    filter: drop-shadow(0 0 22px rgba(232,19,10,0.45));
   }
 
   .city-address {
