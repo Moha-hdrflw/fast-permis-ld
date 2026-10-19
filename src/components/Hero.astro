@@ -97,36 +97,40 @@ const CALENDLY = "https://calendly.com/fastpermis-rdv/30min?month=2026-04";
   }
 
   .city {
+    --w: min(320px, 80vw);
     margin-bottom: 28px;
   }
 
   .city-sign {
     display: block;
-    width: min(320px, 80vw);
+    width: var(--w);
     height: auto;
     margin: 0 auto;
     filter: drop-shadow(0 0 22px rgba(232,19,10,0.45));
   }
 
+  /* Matches the visible sign inside the 900x300 PNG (807x227 at x=47, y=42) */
   .city-sign-css {
-    display: inline-block;
-    width: auto;
+    box-sizing: border-box;
+    width: calc(var(--w) * 0.8967);
+    height: calc(var(--w) * 0.2522);
+    margin: calc(var(--w) * 0.0467) auto calc(var(--w) * 0.0344);
+    padding: calc(var(--w) * 0.012);
     background: #fff;
-    padding: 6px;
-    border-radius: 10px;
-    filter: none;
-    box-shadow: 0 0 30px rgba(232,19,10,0.45);
+    border-radius: calc(var(--w) * 0.02);
   }
   .city-sign-css span {
-    display: block;
-    border: 5px solid var(--red);
-    border-radius: 6px;
-    padding: 6px 30px 4px;
-    font-family: var(--font-title);
-    font-weight: 800;
-    font-size: clamp(2rem, 7vw, 2.8rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    border: calc(var(--w) * 0.02) solid var(--red);
+    border-radius: calc(var(--w) * 0.012);
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: calc(var(--w) * 0.12);
     line-height: 1;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.04em;
     color: #111;
   }
 
