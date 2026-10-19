@@ -15,7 +15,7 @@ export const POST: APIRoute = async ({ request }) => {
     return new Response(JSON.stringify({ error: 'JSON invalide' }), { status: 400 });
   }
 
-  const { eventId, sourceUrl, userAgent, fbp, fbc, externalId } = body;
+  const { eventId, sourceUrl, userAgent, fbp, fbc, externalId, agence } = body;
 
   // IP côté serveur (plus fiable que côté client)
   const clientIp =
@@ -38,6 +38,7 @@ export const POST: APIRoute = async ({ request }) => {
       event_source_url: sourceUrl,
       action_source: 'website',
       user_data: userData,
+      ...(agence && { custom_data: { content_name: agence, agence } }),
     }],
     access_token: ACCESS_TOKEN,
   };

@@ -3,12 +3,14 @@ import '../styles/global.css';
 
 interface Props {
   title?: string;
+  agence: string;
   description?: string;
 }
 
 const {
   title = "Fast Permis – Auto-école Roubaix | Permis dès 699€",
   description = "Fast Permis, auto-école à Roubaix. Permis boîte automatique dès 699€ ou manuelle dès 990€. Paiement 3x sans frais. Dates d'examen rapides. Réserve ton appel gratuit.",
+  agence,
 } = Astro.props;
 ---
 
@@ -30,7 +32,7 @@ const {
     />
 
     <!-- META PIXEL CODE + EMQ FIXES -->
-    <script>
+    <script is:inline>
       // ── Helpers ──────────────────────────────────────────────
       function getCookie(name) {
         const m = document.cookie.match('(?:^|; )' + name + '=([^;]*)');
@@ -87,7 +89,7 @@ const {
       src="https://www.facebook.com/tr?id=2347878375704800&ev=PageView&noscript=1"/>
     </noscript>
   </head>
-  <body>
+  <body data-agence={agence}>
     <!-- Neon background FX -->
     <div class="neon-bg" aria-hidden="true">
       <div class="orb orb-1"></div>
@@ -114,7 +116,7 @@ const {
     </script>
 
     <!-- Tracking clics Calendly → Pixel + CAPI (dédoublonnage par eventId) -->
-    <script>
+    <script is:inline>
       document.querySelectorAll('a[href*="calendly.com"]').forEach((btn) => {
         btn.addEventListener('click', () => {
           const fbp        = getFbp();
@@ -123,10 +125,11 @@ const {
 
           // eventId identique côté client ET serveur → Meta dédoublonne automatiquement
           const eventId = externalId + '_lead_' + Date.now();
+          const agence = document.body.dataset.agence;
 
           // 1. Pixel navigateur
           if (typeof fbq !== 'undefined') {
-            fbq('track', 'Lead', {}, { eventID: eventId });
+            fbq('track', 'Lead', { content_name: agence, agence }, { eventID: eventId });
           }
 
           // 2. CAPI côté serveur (améliore l'EMQ avec IP réelle + user-agent)
@@ -136,6 +139,7 @@ const {
             body: JSON.stringify({
               eventId,
               externalId,
+              agence,
               sourceUrl:  window.location.href,
               userAgent:  navigator.userAgent,
               fbp:        fbp  || '',
