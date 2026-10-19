@@ -10,7 +10,7 @@ const CALENDLY = "https://calendly.com/fastpermis-rdv/30min?month=2026-04";
   <div class="hero-inner">
 
     <div class="hero-logo fade-up visible">
-      <img src="/logo.png" alt="Fast Permis" />
+      <img src="/logo.webp" alt="Fast Permis" width="180" height="180" fetchpriority="high" />
     </div>
 
     <nav class="agence-switch fade-up visible" aria-label="Choisir une agence">
@@ -22,7 +22,7 @@ const CALENDLY = "https://calendly.com/fastpermis-rdv/30min?month=2026-04";
     </nav>
 
     <div class="city fade-up visible">
-      <img class="city-sign" src={agence.panneau} alt={`Agence de ${agence.ville}`} />
+      <img class="city-sign" src={agence.panneau} alt={`Agence de ${agence.ville}`} width="600" height="166" fetchpriority="high" />
 
       <p class="city-address">{agence.adresse ? `Agence · ${agence.adresse}` : `Agence de ${agence.ville}`}</p>
     </div>
@@ -114,6 +114,7 @@ const CALENDLY = "https://calendly.com/fastpermis-rdv/30min?month=2026-04";
   .city-sign {
     display: block;
     width: min(290px, 75vw);
+    height: auto;
     aspect-ratio: 3.6;
     object-fit: fill;
     margin: 0 auto;

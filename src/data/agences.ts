@@ -11,14 +11,14 @@ export const agences: Agence[] = [
   {
     ville: 'Roubaix',
     path: '/',
-    panneau: '/panneau-roubaix.png',
+    panneau: '/panneau-roubaix.webp',
     adresse: '3 rue du Chemin de Fer, 59100 Roubaix',
     prix: { auto: 699, manuelle: 990, accelere: 1499 },
   },
   {
     ville: 'Lille',
     path: '/lille',
-    panneau: '/panneau-lille.png',
+    panneau: '/panneau-lille.webp',
     adresse: "36 Façade de l'Esplanade, 59800 Lille",
     // Prix remisés (offre de lancement). Prix normaux = prix + remise : 799 / 1090 / 1599
     prix: { auto: 699, manuelle: 990, accelere: 1499 },
