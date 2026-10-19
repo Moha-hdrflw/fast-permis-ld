@@ -1,8 +1,8 @@
 ---
 import type { Agence } from '../data/agences';
 
-interface Props { prix: Agence['prix'] }
-const { prix } = Astro.props;
+interface Props { prix: Agence['prix']; remise?: number; ville: string }
+const { prix, remise, ville } = Astro.props;
 const CALENDLY = "https://calendly.com/fastpermis-rdv/30min?month=2026-04";
 
 const en3x = (p: number) =>
@@ -12,7 +12,7 @@ const formules = [
   {
     popular: true,
     name: "Boîte Automatique",
-    price: `${prix.auto}€`,
+    price: prix.auto,
     subPrice: en3x(prix.auto),
     features: [
       "13h de conduite",
@@ -27,7 +27,7 @@ const formules = [
   {
     popular: false,
     name: "Boîte Manuelle",
-    price: `${prix.manuelle}€`,
+    price: prix.manuelle,
     subPrice: en3x(prix.manuelle),
     features: [
       "20h de conduite",
@@ -42,7 +42,7 @@ const formules = [
   {
     popular: false,
     name: "Formule Accélérée",
-    price: `${prix.accelere}€`,
+    price: prix.accelere,
     subPrice: en3x(prix.accelere),
     features: [
       "Permis en 1 mois chrono",
@@ -65,6 +65,9 @@ const formules = [
     <div class="formules-header fade-up">
       <span class="section-label">Nos offres</span>
       <h2 class="section-title">Choisis ta <span>formule</span></h2>
+      {remise && (
+        <p class="promo-banner">🎉 Offre de lancement {ville} : <strong>-{remise}€ sur toutes les formules</strong></p>
+      )}
     </div>
 
     <div class="cards-grid">
@@ -75,7 +78,11 @@ const formules = [
             {f.highlight && <span class="badge-popular badge-gold">⚡ Permis en 1 mois</span>}
             {!f.popular && !f.highlight && <div style="height:28px;" />}
             <div class="formula-name">{f.name}</div>
-            <div class="formula-price">{f.price}</div>
+            <div class="formula-price-row">
+              <span class="formula-price">{f.price}€</span>
+              {remise && <s class="formula-old">{f.price + remise}€</s>}
+              {remise && <span class="remise-tag">-{remise}€</span>}
+            </div>
             <div class="formula-sub-price" set:html={f.subPrice.replace('=', '= <strong>').replace('/mois', '/mois</strong>')} />
           </div>
           <div class="formula-body">
@@ -186,6 +193,46 @@ const formules = [
     letter-spacing: -0.02em;
     color: var(--red);
   }
+
+  .formula-price-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+  }
+
+  .formula-old {
+    font-family: var(--font-title);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-decoration-color: var(--red);
+    text-decoration-thickness: 2px;
+  }
+
+  .remise-tag {
+    padding: 3px 10px;
+    border-radius: 100px;
+    background: linear-gradient(90deg, #e8130a, #ff9500);
+    font-family: var(--font-title);
+    font-size: 0.9rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+  }
+
+  .promo-banner {
+    display: inline-block;
+    margin-top: 18px;
+    padding: 10px 18px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #e8130a, #ff9500);
+    font-family: var(--font-title);
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .promo-banner strong { font-weight: 800; }
 
   .formula-sub-price {
     font-size: 0.88rem;
