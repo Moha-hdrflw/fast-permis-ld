@@ -1,17 +1,24 @@
 ---
+import type { Agence } from '../data/agences';
+
+interface Props { prix: Agence['prix'] }
+const { prix } = Astro.props;
 const CALENDLY = "https://calendly.com/fastpermis-rdv/30min?month=2026-04";
+
+const en3x = (p: number) =>
+  `Paiement en 3x = ${(p / 3).toFixed(2).replace('.00', '').replace('.', ',')}€/mois`;
 
 const formules = [
   {
     popular: true,
     name: "Boîte Automatique",
-    price: "699€",
-    subPrice: "Paiement en 3x = 233€/mois",
+    price: `${prix.auto}€`,
+    subPrice: en3x(prix.auto),
     features: [
       "13h de conduite",
       "Révision du code de la route offerte (en ligne)",
       "Dates d'examen rapides",
-      "Paiement 3x ou 4x sans frais via Alma",
+      "Paiement en 3x sans frais via Alma",
       "Accompagnement du début à la fin",
     ],
     cta: "Je réserve — Boîte Auto →",
@@ -20,13 +27,13 @@ const formules = [
   {
     popular: false,
     name: "Boîte Manuelle",
-    price: "990€",
-    subPrice: "Paiement en 3x = 330€/mois",
+    price: `${prix.manuelle}€`,
+    subPrice: en3x(prix.manuelle),
     features: [
       "20h de conduite",
       "Révision du code de la route offerte (en ligne)",
       "Dates d'examen rapides",
-      "Paiement 3x ou 4x sans frais via Alma",
+      "Paiement en 3x sans frais via Alma",
       "Accompagnement du début à la fin",
     ],
     cta: "Je réserve — Boîte Manuelle →",
@@ -35,8 +42,8 @@ const formules = [
   {
     popular: false,
     name: "Formule Accélérée",
-    price: "1499€",
-    subPrice: "Paiement en 4x = 375€/mois",
+    price: `${prix.accelere}€`,
+    subPrice: en3x(prix.accelere),
     features: [
       "Permis en 1 mois chrono",
       "Heures de conduite intensives",
@@ -44,7 +51,7 @@ const formules = [
       "Dates d'examen prioritaires",
       "Accompagnement le jour de l'examen",
       "Suivi personnalisé jusqu'au permis",
-      "Paiement 3x ou 4x sans frais via Alma",
+      "Paiement en 3x sans frais via Alma",
     ],
     cta: "Je réserve — Formule Accélérée →",
     highlight: true,

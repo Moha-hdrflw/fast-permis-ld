@@ -1,0 +1,37 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from './Nav.astro';
+import Hero from './Hero.astro';
+import HowItWorks from './HowItWorks.astro';
+import Formules from './Formules.astro';
+import Why from './Why.astro';
+import Reviews from './Reviews.astro';
+import FAQ from './FAQ.astro';
+import CTAFinal from './CTAFinal.astro';
+import Footer from './Footer.astro';
+import type { Agence } from '../data/agences';
+
+interface Props { agence: Agence }
+const { agence } = Astro.props;
+const { ville, prix } = agence;
+---
+
+<Layout
+  title={`Fast Permis – Auto-école ${ville} | Permis dès ${prix.auto}€`}
+  description={`Fast Permis, auto-école à ${ville}. Permis boîte automatique dès ${prix.auto}€ ou manuelle dès ${prix.manuelle}€. Paiement en 3x sans frais. Dates d'examen rapides. Réserve ton appel gratuit.`}
+>
+  <Nav />
+  <Hero agence={agence} />
+  <div class="section-divider" />
+  <HowItWorks />
+  <div class="section-divider" />
+  <Formules prix={prix} />
+  <div class="section-divider" />
+  <Why />
+  <div class="section-divider" />
+  <Reviews />
+  <div class="section-divider" />
+  <FAQ />
+  <CTAFinal />
+  <Footer agence={agence} />
+</Layout>

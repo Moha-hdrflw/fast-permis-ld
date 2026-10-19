@@ -1,4 +1,8 @@
 ---
+import { agences, type Agence } from '../data/agences';
+
+interface Props { agence: Agence }
+const { agence } = Astro.props;
 const CALENDLY = "https://calendly.com/fastpermis-rdv/30min?month=2026-04";
 ---
 
@@ -9,9 +13,19 @@ const CALENDLY = "https://calendly.com/fastpermis-rdv/30min?month=2026-04";
       <img src="/logo.png" alt="Fast Permis" />
     </div>
 
+    <nav class="agence-switch fade-up visible" aria-label="Choisir une agence">
+      {agences.map((a) => (
+        <a href={a.path} class={a.ville === agence.ville ? 'active' : ''} aria-current={a.ville === agence.ville ? 'page' : undefined}>
+          {a.ville}
+        </a>
+      ))}
+    </nav>
+
     <div class="city fade-up visible">
-      <img class="city-sign" src="/panneau-roubaix.png" alt="Agence de Roubaix" width="900" height="300" />
-      <p class="city-address">Agence · 3 rue du Chemin de Fer, 59100 Roubaix</p>
+      {agence.panneau
+        ? <img class="city-sign" src={agence.panneau} alt={`Agence de ${agence.ville}`} width="900" height="300" />
+        : <div class="city-sign city-sign-css" role="img" aria-label={`Agence de ${agence.ville}`}><span>{agence.ville.toUpperCase()}</span></div>}
+      <p class="city-address">{agence.adresse ? `Agence · ${agence.adresse}` : `Agence de ${agence.ville}`}</p>
     </div>
 
     <div class="hero-badge fade-up visible">
@@ -21,7 +35,7 @@ const CALENDLY = "https://calendly.com/fastpermis-rdv/30min?month=2026-04";
 
     <h1 class="hero-title fade-up visible">
       Ton Permis
-      <span class="price">Dès 699€</span>
+      <span class="price">Dès {agence.prix.auto}€</span>
     </h1>
 
     <p class="hero-sub fade-up visible">
@@ -37,7 +51,7 @@ const CALENDLY = "https://calendly.com/fastpermis-rdv/30min?month=2026-04";
 
     <div class="hero-chips stagger fade-up visible">
       <span class="chip">🚀 Dates d'examen rapides</span>
-      <span class="chip">💳 Paiement 3x ou 4x sans frais</span>
+      <span class="chip">💳 Paiement en 3x sans frais</span>
       <span class="chip">📞 Conseillers disponibles 7j/7</span>
     </div>
 
@@ -92,6 +106,54 @@ const CALENDLY = "https://calendly.com/fastpermis-rdv/30min?month=2026-04";
     height: auto;
     margin: 0 auto;
     filter: drop-shadow(0 0 22px rgba(232,19,10,0.45));
+  }
+
+  .city-sign-css {
+    display: inline-block;
+    width: auto;
+    background: #fff;
+    padding: 6px;
+    border-radius: 10px;
+    filter: none;
+    box-shadow: 0 0 30px rgba(232,19,10,0.45);
+  }
+  .city-sign-css span {
+    display: block;
+    border: 5px solid var(--red);
+    border-radius: 6px;
+    padding: 6px 30px 4px;
+    font-family: var(--font-title);
+    font-weight: 800;
+    font-size: clamp(2rem, 7vw, 2.8rem);
+    line-height: 1;
+    letter-spacing: 0.06em;
+    color: #111;
+  }
+
+  .agence-switch {
+    display: inline-flex;
+    gap: 4px;
+    padding: 4px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    background: rgba(255,255,255,0.04);
+  }
+  .agence-switch a {
+    padding: 8px 20px;
+    border-radius: 100px;
+    font-family: var(--font-title);
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    transition: color var(--transition), background var(--transition);
+  }
+  .agence-switch a:hover { color: var(--white); }
+  .agence-switch a.active {
+    background: var(--red);
+    color: var(--white);
   }
 
   .city-address {

@@ -1,0 +1,7 @@
+---
+export const prerender = true;
+import AgencePage from '../components/AgencePage.astro';
+import { getAgence } from '../data/agences';
+---
+
+<AgencePage agence={getAgence('Lille')} />
